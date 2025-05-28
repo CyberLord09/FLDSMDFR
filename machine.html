@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cloudy with a Chance of Berries</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+    body {
+      margin: 0;
+      background: black;
+      font-family: 'Share Tech Mono', monospace;
+      color: #00FF7F;
+      overflow: hidden;
+    }
+
+    .screen {
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      text-shadow: 0 0 6px #00FF7F;
+    }
+
+    .scanlines::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 255, 127, 0.03),
+        rgba(0, 255, 127, 0.03) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #FF69B4;
+    }
+
+    .status {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .loading-bar {
+      width: 80%;
+      height: 20px;
+      border: 2px solid #00FF7F;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .loading-bar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -50%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(to right, #00FF7F 0%, #1aff8c 100%);
+      animation: loading 2s linear infinite;
+    }
+
+    @keyframes loading {
+      from { left: -50%; }
+      to { left: 100%; }
+    }
+
+    .berry {
+      width: 60px;
+      height: 60px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Strawberry_icon.png/480px-Strawberry_icon.png');
+      background-size: cover;
+      animation: spin 6s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .footer {
+      font-size: 1rem;
+      color: #B0FFB0;
+      margin-top: 2rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="screen scanlines">
+    <div class="title">FLDSMDFR v2.0</div>
+    <div class="status">Generating: BERRY ICE CREAM 🍓</div>
+    <div class="berry"></div>
+    <div class="loading-bar"></div>
+    <div class="status">Calories → Flavor Conversion Active</div>
+    <div class="footer">Cloudy with a Chance of Berries — Ice Cream Churn System</div>
+  </div>
+</body>
+</html>
