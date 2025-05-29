@@ -3,113 +3,185 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cloudy with a Chance of Berries</title>
+  <title>FLDSMDFR Screen</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
-    body {
+    html, body {
       margin: 0;
-      background: black;
+      padding: 0;
+      background: #01080e;
       font-family: 'Share Tech Mono', monospace;
-      color: #00FF7F;
+      color: #36ffbe;
+      height: 100%;
       overflow: hidden;
+      user-select: none;
     }
 
     .screen {
       position: relative;
-      height: 100vh;
       width: 100vw;
-      padding: 2rem;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      text-shadow: 0 0 6px #00FF7F;
+      text-shadow: 0 0 12px #00ffb3, 0 0 3px #00FF7F;
+      z-index: 1;
     }
 
+    /* Scanlines and Flicker */
+    .scanlines {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 10;
+      mix-blend-mode: overlay;
+    }
     .scanlines::before {
       content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      display: block;
+      width: 100vw;
+      height: 100vh;
       background: repeating-linear-gradient(
         to bottom,
-        rgba(0, 255, 127, 0.03),
-        rgba(0, 255, 127, 0.03) 2px,
+        rgba(54,255,190,0.09),
+        rgba(54,255,190,0.09) 2px,
         transparent 2px,
         transparent 4px
       );
-      pointer-events: none;
-      z-index: 2;
+      animation: scanmove 8s linear infinite;
+    }
+    @keyframes scanmove {
+      0% { background-position-y: 0; }
+      100% { background-position-y: 40px; }
+    }
+    .flicker {
+      animation: flicker 2.3s infinite alternate;
+    }
+    @keyframes flicker {
+      0% { opacity: 1; }
+      98% { opacity: 1; }
+      100% { opacity: .7; }
     }
 
+    /* TITLE */
     .title {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: #FF69B4;
+      font-size: 2.8rem;
+      color: #ff7bca;
+      letter-spacing: 0.2em;
+      margin-bottom: .5rem;
+      text-shadow: 0 0 24px #ff7bca, 0 0 10px #00FF7F;
+      animation: glowTitle 1.6s infinite alternate;
+    }
+    @keyframes glowTitle {
+      0% { text-shadow: 0 0 8px #ff7bca; }
+      100% { text-shadow: 0 0 32px #ff7bca, 0 0 10px #00FF7F; }
     }
 
+    /* STATUS */
     .status {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
+      color: #36ffbe;
       margin-bottom: 2rem;
+      letter-spacing: 0.06em;
     }
 
-    .loading-bar {
-      width: 80%;
-      height: 20px;
-      border: 2px solid #00FF7F;
+    /* ICE CREAM ASSEMBLY */
+    .icecream {
+      font-size: 6rem;
+      height: 8rem;
+      line-height: 8rem;
+      margin-bottom: 2rem;
+      filter: drop-shadow(0 0 22px #fdffaa);
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      gap: 0;
+    }
+    .ice-part {
+      opacity: 0;
+      transform: translateY(40px) scale(0.8);
+      animation: appear 0.7s forwards;
+    }
+    .ice-part-1 { animation-delay: 0.3s; }
+    .ice-part-2 { animation-delay: 1.0s; }
+    .ice-part-3 { animation-delay: 1.7s; }
+    .ice-part-4 { animation-delay: 2.4s; }
+    @keyframes appear {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1.1);
+      }
+    }
+
+    /* ENERGY METER */
+    .energy-bar {
+      width: 280px;
+      height: 26px;
+      border: 2px solid #36ffbe;
+      border-radius: 20px;
+      background: rgba(34,255,180,0.09);
       overflow: hidden;
+      margin: 0 auto 2.5rem auto;
+      box-shadow: 0 0 20px #36ffbe44;
       position: relative;
-      margin-bottom: 2rem;
     }
-
-    .loading-bar::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -50%;
-      width: 50%;
+    .energy {
       height: 100%;
-      background: linear-gradient(to right, #00FF7F 0%, #1aff8c 100%);
-      animation: loading 2s linear infinite;
+      width: 0;
+      background: linear-gradient(90deg,#7bffcf 0%,#43ffa6 80%,#FFF176 100%);
+      border-radius: 20px 0 0 20px;
+      box-shadow: 0 0 18px #f3ff7b;
+      animation: energize 3s cubic-bezier(0.5,0,0.5,1) infinite;
     }
-
-    @keyframes loading {
-      from { left: -50%; }
-      to { left: 100%; }
-    }
-
-    .berry {
-      width: 60px;
-      height: 60px;
-      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Strawberry_icon.png/480px-Strawberry_icon.png');
-      background-size: cover;
-      animation: spin 6s linear infinite;
-      margin-bottom: 1rem;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    @keyframes energize {
+      0% { width: 0%; }
+      80% { width: 96%; }
+      100% { width: 0%; }
     }
 
     .footer {
-      font-size: 1rem;
-      color: #B0FFB0;
+      font-size: 1.15rem;
+      color: #baffdc;
       margin-top: 2rem;
-      opacity: 0.8;
+      opacity: .87;
+      letter-spacing: 0.09em;
+      text-shadow: 0 0 6px #00ffb3;
+    }
+
+    /* Animated machine alerts */
+    .machine-alert {
+      font-size: 1.07rem;
+      color: #FFF176;
+      margin-top: 1.1rem;
+      opacity: 0.98;
+      text-shadow: 0 0 8px #FFF176, 0 0 5px #43ffa6;
+      animation: blink 0.85s steps(2) infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.5; }
     }
   </style>
 </head>
 <body>
-  <div class="screen scanlines">
-    <div class="title">FLDSMDFR v2.0</div>
-    <div class="status">Generating: BERRY ICE CREAM 🍓</div>
-    <div class="berry"></div>
-    <div class="loading-bar"></div>
-    <div class="status">Calories → Flavor Conversion Active</div>
-    <div class="footer">Cloudy with a Chance of Berries — Ice Cream Churn System</div>
+  <div class="screen">
+    <div class="title flicker">FLDSMDFR v2.0</div>
+    <div class="status flicker">Generating: BERRY ICE CREAM <span id="icecream-status">🍓</span></div>
+    <div class="icecream" aria-label="Animated ice cream assembly">
+      <span class="ice-part ice-part-1">🍦</span>
+      <span class="ice-part ice-part-2">🍓</span>
+      <span class="ice-part ice-part-3">🍧</span>
+      <span class="ice-part ice-part-4">🍒</span>
+    </div>
+    <div class="energy-bar">
+      <div class="energy"></div>
+    </div>
+    <div class="status flicker">Calories → Flavor Conversion: <span class="machine-alert">ACTIVE</span></div>
+    <div class="footer flicker">Cloudy with a Chance of Berries — Ice Cream Churn System</div>
+    <div class="scanlines"></div>
   </div>
 </body>
 </html>
