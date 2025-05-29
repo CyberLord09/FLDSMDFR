@@ -7,19 +7,12 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
-    :root {
-      --primary: #36ffbe;
-      --secondary: #ff7bca;
-      --accent: #FFF176;
-      --bg: #01080e;
-    }
-
     html, body {
       margin: 0;
       padding: 0;
-      background: var(--bg);
+      background: #01080e;
       font-family: 'Share Tech Mono', monospace;
-      color: var(--primary);
+      color: #36ffbe;
       height: 100%;
       overflow: hidden;
       user-select: none;
@@ -34,9 +27,8 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      text-shadow: 0 0 12px var(--primary), 0 0 3px var(--primary);
+      text-shadow: 0 0 12px #00ffb3, 0 0 3px #00FF7F;
       z-index: 1;
-      overflow: hidden;
     }
 
     /* Scanlines and Flicker */
@@ -76,475 +68,120 @@
 
     /* TITLE */
     .title {
-      font-size: 3.5rem;
-      color: var(--secondary);
+      font-size: 2.8rem;
+      color: #ff7bca;
       letter-spacing: 0.2em;
       margin-bottom: .5rem;
-      text-shadow: 0 0 24px var(--secondary), 0 0 10px var(--primary);
+      text-shadow: 0 0 24px #ff7bca, 0 0 10px #00FF7F;
       animation: glowTitle 1.6s infinite alternate;
-      position: relative;
-    }
-    .title::after {
-      content: '■';
-      position: absolute;
-      right: -20px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1rem;
-      color: red;
-      animation: blink 0.5s steps(2) infinite;
     }
     @keyframes glowTitle {
-      0% { text-shadow: 0 0 8px var(--secondary); }
-      100% { text-shadow: 0 0 32px var(--secondary), 0 0 10px var(--primary); }
+      0% { text-shadow: 0 0 8px #ff7bca; }
+      100% { text-shadow: 0 0 32px #ff7bca, 0 0 10px #00FF7F; }
     }
 
     /* STATUS */
     .status {
-      font-size: 1.4rem;
-      color: var(--primary);
+      font-size: 1.25rem;
+      color: #36ffbe;
       margin-bottom: 2rem;
       letter-spacing: 0.06em;
-      position: relative;
-    }
-    .status::before {
-      content: '>';
-      margin-right: 10px;
-      animation: blink 0.85s steps(2) infinite;
     }
 
     /* ICE CREAM ASSEMBLY */
-    .icecream-container {
-      position: relative;
-      width: 300px;
-      height: 300px;
-      margin-bottom: 2rem;
-    }
-    
     .icecream {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      filter: drop-shadow(0 0 22px #fdffaa);
-    }
-    
-    .cone {
       font-size: 6rem;
-      z-index: 2;
-      transform-origin: bottom;
-      animation: wobble 3s ease-in-out infinite;
+      height: 8rem;
+      line-height: 8rem;
+      margin-bottom: 2rem;
+      filter: drop-shadow(0 0 22px #fdffaa);
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      gap: 0;
     }
-    
-    .scoop {
-      font-size: 4rem;
-      position: relative;
-      z-index: 1;
-      margin-bottom: -30px;
-      transform-origin: bottom;
-      animation: 
-        scoopAppear 0.5s ease-out forwards,
-        wobble 3s ease-in-out infinite;
+    .ice-part {
+      opacity: 0;
+      transform: translateY(40px) scale(0.8);
+      animation: appear 0.7s forwards;
     }
-    
-    .topping {
-      font-size: 3rem;
-      position: relative;
-      z-index: 3;
-      margin-bottom: -15px;
-      transform: scale(0);
-      animation: 
-        toppingAppear 0.5s 1s ease-out forwards,
-        wobble 3s ease-in-out infinite;
-    }
-    
-    .cherry {
-      font-size: 2rem;
-      position: relative;
-      z-index: 4;
-      margin-bottom: 10px;
-      transform: scale(0);
-      animation: 
-        cherryAppear 0.5s 1.5s ease-out forwards,
-        wobble 3s ease-in-out infinite;
-    }
-    
-    .drip {
-      position: absolute;
-      font-size: 1.5rem;
-      color: #ff7bca;
-      z-index: 0;
-      animation: drip 4s linear infinite;
-    }
-    
-    @keyframes scoopAppear {
-      0% { transform: translateY(100px) scale(0); opacity: 0; }
-      100% { transform: translateY(0) scale(1); opacity: 1; }
-    }
-    
-    @keyframes toppingAppear {
-      0% { transform: translateY(50px) scale(0); opacity: 0; }
-      100% { transform: translateY(0) scale(1); opacity: 1; }
-    }
-    
-    @keyframes cherryAppear {
-      0% { transform: translateY(30px) scale(0); opacity: 0; }
-      100% { transform: translateY(0) scale(1); opacity: 1; }
-    }
-    
-    @keyframes wobble {
-      0%, 100% { transform: rotate(-2deg); }
-      50% { transform: rotate(2deg); }
-    }
-    
-    @keyframes drip {
-      0% { transform: translateY(-10px) scale(0.5); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { transform: translateY(50px) scale(0.2); opacity: 0; }
+    .ice-part-1 { animation-delay: 0.3s; }
+    .ice-part-2 { animation-delay: 1.0s; }
+    .ice-part-3 { animation-delay: 1.7s; }
+    .ice-part-4 { animation-delay: 2.4s; }
+    @keyframes appear {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1.1);
+      }
     }
 
     /* ENERGY METER */
-    .energy-container {
-      width: 320px;
-      margin: 0 auto 2.5rem auto;
-      position: relative;
-    }
-    
-    .energy-label {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 5px;
-      font-size: 0.9rem;
-      color: var(--accent);
-    }
-    
     .energy-bar {
-      width: 100%;
+      width: 280px;
       height: 26px;
-      border: 2px solid var(--primary);
+      border: 2px solid #36ffbe;
       border-radius: 20px;
       background: rgba(34,255,180,0.09);
       overflow: hidden;
-      box-shadow: 0 0 20px var(--primary)44;
+      margin: 0 auto 2.5rem auto;
+      box-shadow: 0 0 20px #36ffbe44;
       position: relative;
     }
-    
     .energy {
       height: 100%;
       width: 0;
-      background: linear-gradient(90deg,#7bffcf 0%,#43ffa6 80%,var(--accent) 100%);
+      background: linear-gradient(90deg,#7bffcf 0%,#43ffa6 80%,#FFF176 100%);
       border-radius: 20px 0 0 20px;
       box-shadow: 0 0 18px #f3ff7b;
       animation: energize 3s cubic-bezier(0.5,0,0.5,1) infinite;
     }
-    
-    .energy-pulse {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.8) 0%, transparent 70%);
-      opacity: 0;
-      animation: pulse 1.5s infinite;
-    }
-    
     @keyframes energize {
       0% { width: 0%; }
       80% { width: 96%; }
       100% { width: 0%; }
     }
-    
-    @keyframes pulse {
-      0% { opacity: 0; transform: scale(0.5); }
-      50% { opacity: 0.3; }
-      100% { opacity: 0; transform: scale(1.2); }
-    }
 
-    /* MOLECULE ANIMATION */
-    .molecules {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: -1;
-      opacity: 0.3;
-    }
-    
-    .molecule {
-      position: absolute;
-      font-size: 1rem;
-      animation: float linear infinite;
-      opacity: 0.7;
-    }
-    
-    @keyframes float {
-      0% { transform: translateY(0) translateX(0); }
-      100% { transform: translateY(-100vh) translateX(20px); }
-    }
-
-    /* WARNING LIGHTS */
-    .warning-light {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: red;
-      box-shadow: 0 0 10px red;
-      animation: warningBlink 1s steps(2) infinite;
-    }
-    
-    .warning-light.top-left {
-      top: 20px;
-      left: 20px;
-    }
-    
-    .warning-light.top-right {
-      top: 20px;
-      right: 20px;
-    }
-    
-    @keyframes warningBlink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    /* FOOTER */
     .footer {
       font-size: 1.15rem;
       color: #baffdc;
       margin-top: 2rem;
       opacity: .87;
       letter-spacing: 0.09em;
-      text-shadow: 0 0 6px var(--primary);
-      position: relative;
-    }
-    
-    .footer::before, .footer::after {
-      content: '//';
-      margin: 0 10px;
-      color: var(--accent);
+      text-shadow: 0 0 6px #00ffb3;
     }
 
     /* Animated machine alerts */
     .machine-alert {
       font-size: 1.07rem;
-      color: var(--accent);
+      color: #FFF176;
       margin-top: 1.1rem;
       opacity: 0.98;
-      text-shadow: 0 0 8px var(--accent), 0 0 5px var(--primary);
+      text-shadow: 0 0 8px #FFF176, 0 0 5px #43ffa6;
       animation: blink 0.85s steps(2) infinite;
     }
-    
-    .machine-data {
-      display: inline-block;
-      min-width: 80px;
-      text-align: left;
-      color: var(--accent);
-      animation: dataChange 4s infinite;
-    }
-    
     @keyframes blink {
       0%,100% { opacity: 1; }
       50% { opacity: 0.5; }
-    }
-    
-    @keyframes dataChange {
-      0%, 30% { content: 'NORMAL'; }
-      35%, 65% { content: 'OPTIMAL'; }
-      70%, 100% { content: 'PEAK'; }
-    }
-
-    /* PARTICLE EFFECTS */
-    .particles {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: -1;
-    }
-    
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--primary);
-      opacity: 0;
-      animation: particleAnim 3s linear infinite;
-    }
-    
-    @keyframes particleAnim {
-      0% { transform: translateY(0) translateX(0); opacity: 0; }
-      10% { opacity: 0.8; }
-      90% { opacity: 0.8; }
-      100% { transform: translateY(-100px) translateX(20px); opacity: 0; }
-    }
-
-    /* GLITCH EFFECT */
-    .glitch {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--bg);
-      z-index: 100;
-      opacity: 0;
-      pointer-events: none;
-      animation: glitch 15s infinite;
-    }
-    
-    @keyframes glitch {
-      0%, 96%, 98%, 100% { opacity: 0; }
-      97%, 99% { opacity: 0.2; }
     }
   </style>
 </head>
 <body>
   <div class="screen">
-    <!-- Warning lights -->
-    <div class="warning-light top-left"></div>
-    <div class="warning-light top-right"></div>
-    
-    <!-- Title -->
     <div class="title flicker">FLDSMDFR v2.0</div>
-    
-    <!-- Status -->
-    <div class="status flicker">PROCESSING: <span class="machine-data">BERRY ICE CREAM</span> <span id="icecream-status">🍓</span></div>
-    
-    <!-- Ice cream assembly -->
-    <div class="icecream-container">
-      <div class="icecream">
-        <div class="cone">🍦</div>
-        <div class="scoop">🍨</div>
-        <div class="topping">🍓</div>
-        <div class="cherry">🍒</div>
-      </div>
-      
-      <!-- Drips -->
-      <div class="drip" style="left: 40%; animation-delay: 2s;"></div>
-      <div class="drip" style="left: 60%; animation-delay: 3s;"></div>
+    <div class="status flicker">Generating: BERRY ICE CREAM <span id="icecream-status">🍓</span></div>
+    <div class="icecream" aria-label="Animated ice cream assembly">
+      <span class="ice-part ice-part-1">🍦</span>
+      <span class="ice-part ice-part-2">🍓</span>
+      <span class="ice-part ice-part-3">🍧</span>
+      <span class="ice-part ice-part-4">🫐</span>
     </div>
-    
-    <!-- Energy meter -->
-    <div class="energy-container">
-      <div class="energy-label">
-        <span>ENERGY INPUT</span>
-        <span>CALORIE CONVERSION</span>
-      </div>
-      <div class="energy-bar">
-        <div class="energy"></div>
-        <div class="energy-pulse"></div>
-      </div>
+    <div class="energy-bar">
+      <div class="energy"></div>
     </div>
-    
-    <!-- System status -->
-    <div class="status flicker">SYSTEM STATUS: <span class="machine-alert">OPERATIONAL</span></div>
-    <div class="status flicker">FLAVOR PROFILE: <span class="machine-data">SWEET</span></div>
-    
-    <!-- Footer -->
-    <div class="footer flicker">Cloudy with a Chance of Berries — Molecular Churning System</div>
-    
-    <!-- Background effects -->
-    <div class="molecules" id="molecules"></div>
-    <div class="particles" id="particles"></div>
+    <div class="status flicker">Calories → Flavor Conversion: <span class="machine-alert">ACTIVE</span></div>
+    <div class="footer flicker">Cloudy with a Chance of Berries — Ice Cream Churn System</div>
     <div class="scanlines"></div>
-    <div class="glitch"></div>
   </div>
-
-  <script>
-    // Create floating molecules
-    const molecules = document.getElementById('molecules');
-    const moleculeChars = ['⚛', '⚗', '🧪', '🔬', '🧫', '•', '●', '○'];
-    
-    for (let i = 0; i < 30; i++) {
-      const molecule = document.createElement('div');
-      molecule.className = 'molecule';
-      molecule.textContent = moleculeChars[Math.floor(Math.random() * moleculeChars.length)];
-      molecule.style.left = `${Math.random() * 100}%`;
-      molecule.style.top = `${Math.random() * 100}%`;
-      molecule.style.animationDuration = `${10 + Math.random() * 20}s`;
-      molecule.style.animationDelay = `${Math.random() * 5}s`;
-      molecules.appendChild(molecule);
-    }
-    
-    // Create particles
-    const particles = document.getElementById('particles');
-    
-    function createParticle() {
-      const particle = document.createElement('div');
-      particle.className = 'particle';
-      particle.style.left = `${40 + Math.random() * 20}%`;
-      particle.style.bottom = '150px';
-      particle.style.animationDuration = `${2 + Math.random() * 3}s`;
-      particle.style.animationDelay = `${Math.random() * 2}s`;
-      particle.style.opacity = Math.random() * 0.5;
-      particles.appendChild(particle);
-      
-      // Remove particle after animation
-      setTimeout(() => {
-        particle.remove();
-      }, 3000);
-    }
-    
-    // Create initial particles
-    for (let i = 0; i < 10; i++) {
-      setTimeout(createParticle, i * 300);
-    }
-    
-    // Continuous particle creation
-    setInterval(createParticle, 300);
-    
-    // Random system fluctuations
-    setInterval(() => {
-      const status = document.querySelector('.machine-alert');
-      const alerts = ['OPERATIONAL', 'OPTIMAL', 'WARNING', 'CRITICAL', 'OVERLOAD'];
-      const colors = ['#36ffbe', '#FFF176', '#ff7bca', '#ff5252', '#ff0000'];
-      
-      if (Math.random() > 0.8) {
-        const randomIndex = Math.floor(Math.random() * alerts.length);
-        status.textContent = alerts[randomIndex];
-        status.style.color = colors[randomIndex];
-        
-        // Add glitch effect for critical status
-        if (randomIndex >= 2) {
-          document.querySelector('.glitch').style.opacity = '0.3';
-          setTimeout(() => {
-            document.querySelector('.glitch').style.opacity = '0';
-          }, 500);
-        }
-      }
-    }, 3000);
-    
-    // Change flavor profile periodically
-    const flavors = ['SWEET', 'RICH', 'CREAMY', 'BOLD'];
-    const flavorDisplay = document.querySelectorAll('.machine-data')[1];
-    
-    setInterval(() => {
-      const randomFlavor = flavors[Math.floor(Math.random() * flavors.length)];
-      flavorDisplay.textContent = randomFlavor;
-    }, 4000);
-    
-    // Simulate ice cream completion
-    setInterval(() => {
-      const iceCream = document.querySelector('.icecream');
-      iceCream.style.animation = 'none';
-      void iceCream.offsetWidth; // Trigger reflow
-      iceCream.style.animation = '';
-      
-      // Change toppings randomly
-      const toppings = ['🍓', '🍒', '🍇', '🍑', '🍎', '🍊'];
-      document.querySelector('.topping').textContent = toppings[Math.floor(Math.random() * toppings.length)];
-    }, 6000);
-  </script>
 </body>
 </html>
